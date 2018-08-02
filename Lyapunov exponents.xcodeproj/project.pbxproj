@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8326E66E211302E80047CC5F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8326E66D211302E80047CC5F /* OpenGL.framework */; };
+		8326E670211302EF0047CC5F /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8326E66F211302EF0047CC5F /* GLUT.framework */; };
 		8344F56E2111A5F70026B5DB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8344F56D2111A5F70026B5DB /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8326E66D211302E80047CC5F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		8326E66F211302EF0047CC5F /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		8344F56A2111A5F70026B5DB /* Lyapunov exponents */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Lyapunov exponents"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8344F56D2111A5F70026B5DB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -32,17 +36,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8326E670211302EF0047CC5F /* GLUT.framework in Frameworks */,
+				8326E66E211302E80047CC5F /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8326E66C211302E80047CC5F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8326E66F211302EF0047CC5F /* GLUT.framework */,
+				8326E66D211302E80047CC5F /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8344F5612111A5F70026B5DB = {
 			isa = PBXGroup;
 			children = (
 				8344F56C2111A5F70026B5DB /* Lyapunov exponents */,
 				8344F56B2111A5F70026B5DB /* Products */,
+				8326E66C211302E80047CC5F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +254,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -246,6 +263,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
