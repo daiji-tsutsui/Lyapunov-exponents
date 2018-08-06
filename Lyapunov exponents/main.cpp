@@ -10,6 +10,7 @@
 #include <OpenGL/OpenGL.h>
 #include <GLUT/GLUT.h>
 #include <random>
+#define A	3.5699
 using namespace std;
 
 random_device rnd;     // 非決定的な乱数生成器
@@ -18,17 +19,17 @@ uniform_real_distribution<> unif(0.0, 1.0);   // [0.0,1.0]上一様に分布さ�
 normal_distribution<> gauss(0.0, 1.0);   // 平均0.0、標準偏差1.0で分布させる
 
 int winh = 800; int winw = 1000;
-double yMin = -5.0; double yMax = 1.0;
-int itrNum = 5000; int itrCnt = 0;
+double yMin = -1.0; double yMax = 1.0;
+int itrNum = 3000; int itrCnt = 0;
 int seqNum = 1000;
 double **lyp;
 double *x;
 
-double f(double x, double a = 1.0){
-	return a * x * (1.0-x);
+double f(double u){
+	return A * u * (1.0-u);
 }
-double df(double x, double a = 1.0){
-	return a * (1.0 - 2.0*x);
+double df(double u){
+	return A * (1.0 - 2.0*u);
 }
 
 /*--For OpenGL-------------------------------------------------------------------------*/
@@ -66,9 +67,9 @@ void display(void){
 	
 	glColor3d(0.0, 0.0, 0.0);	//Black
 	glBegin(GL_LINES);
-//	//x-axis
-//	glVertex2d(-1.0, 0.0);
-//	glVertex2d(1.0, 0.0);
+	//x-axis
+	glVertex2d(-1.0, 0.0);
+	glVertex2d(1.0, 0.0);
 	//y-axis
 	glVertex2d(0.0, -1.0);
 	glVertex2d(0.0, 1.0);
@@ -77,11 +78,11 @@ void display(void){
 	//trajectoryの計算
 	for(int k = 0; k < seqNum; k++){
 		x[k] = f(x[k]);
-		lyp[k][itrCnt] = (1.0-1.0/(itrCnt+1)) * lyp[k][itrCnt-1] + log(abs(df(x[k])));
+		lyp[k][itrCnt] = (1.0-1.0/(itrCnt+1)) * lyp[k][itrCnt-1] + log(abs(df(x[k])))/(itrCnt+1);
 	}
 	if(itrCnt < itrNum) itrCnt++;
 	for(int k = 0; k < seqNum; k++){
-		glColor3d(sin(0.1*k), 0.0, cos(0.1*k));
+		glColor3d(sin(0.1*k), cos(0.3*k), cos(0.2*k));
 		glBegin(GL_LINE_STRIP);
 		for(int i = 0; i < itrCnt; i++){
 			glVertex2d(-1.0 + 2.0*i/itrNum, -1.0 + 2.0*(lyp[k][i]-yMin)/(yMax-yMin));
@@ -109,7 +110,7 @@ int main(int argc, char * argv[]) {
 	glutInit(&argc, argv);
 	glutInitWindowSize(winw, winh);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
-	glutCreateWindow("Support Vector Machine");
+	glutCreateWindow("Lyapunov Exponents");
 	glutReshapeFunc(resize);
 	glutDisplayFunc(display);
 	//	glutIdleFunc(idle);
